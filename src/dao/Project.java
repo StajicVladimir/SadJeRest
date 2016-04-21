@@ -144,6 +144,35 @@ public class Project {
 		}
 	}
 	
+	public ArrayList<ispitniRok> GetFutureTerms(Connection connection) throws Exception
+	{
+		ArrayList<ispitniRok> feedData = new ArrayList<ispitniRok>();
+		try
+		{
+		
+			String sql = "select id, datum from rok where datum > now() and datum < DATE_ADD(now(),  INTERVAL 5 MONTH)";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			String pom;
+			while(rs.next())
+			{
+			//FeedObjects feedObject = new FeedObjects();
+				ispitniRok feedObject = new ispitniRok();
+				feedObject.setId(rs.getInt("id"));
+				pom = rs.getDate("datum").toString();
+				feedObject.setDate(pom);
+				
+				
+				
+			feedData.add(feedObject);
+			}
+			return feedData;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
 	public ArrayList<Ispit> getPolozeniIspiti(Connection connection, int studentId, int rokId) throws Exception
 	{
 		ArrayList<Ispit> feedData = new ArrayList<Ispit>();

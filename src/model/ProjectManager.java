@@ -55,6 +55,20 @@ public class ProjectManager {
 		}
 		return feeds;
 	}
+	
+	public ArrayList<ispitniRok> getFutureTerms()throws Exception {
+		ArrayList<ispitniRok> feeds = null;
+		try {
+			    Database database= new Database();
+			    Connection connection = database.Get_Connection();
+				Project project= new Project();
+				feeds=project.GetFutureTerms(connection);
+		
+		} catch (Exception e) {
+			throw e;
+		}
+		return feeds;
+	}
 	public ArrayList<FeedObjectsTerm> GetTerms()throws Exception {
 		ArrayList<FeedObjectsTerm> feeds = null;
 		try {

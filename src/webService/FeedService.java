@@ -138,6 +138,32 @@ public class FeedService {
 		}
 		return feeds;
 	}
+
+	@GET
+	@Path("/BuduciRokovi")
+	@Produces("application/json")
+	
+	public String feedFutureRokovi()
+	{	
+		
+		String feeds  = null;
+		try 
+		{	
+			
+			ArrayList<ispitniRok> feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getFutureTerms();
+			
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
+
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
 	//***********************************************
 	@GET
 	@Path("/RokIspiti/{studentid},{rokid}")
