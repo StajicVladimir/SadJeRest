@@ -9,6 +9,7 @@ import dao.Project;
 import dto.FeedObjectsHero;
 import dto.FeedObjectsTerm;
 import dto.Student;
+import dto.ispitniRok;
 
 public class ProjectManager {
 	
@@ -40,6 +41,19 @@ public class ProjectManager {
 		return feeds;
 	}
 	
+	public ArrayList<ispitniRok> getAllTerms(int id)throws Exception {
+		ArrayList<ispitniRok> feeds = null;
+		try {
+			    Database database= new Database();
+			    Connection connection = database.Get_Connection();
+				Project project= new Project();
+				feeds=project.GetAllTerms(connection, id);
+		
+		} catch (Exception e) {
+			throw e;
+		}
+		return feeds;
+	}
 	public ArrayList<FeedObjectsTerm> GetTerms()throws Exception {
 		ArrayList<FeedObjectsTerm> feeds = null;
 		try {

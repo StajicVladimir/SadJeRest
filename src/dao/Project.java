@@ -9,6 +9,7 @@ import dto.FeedObjects;
 import dto.FeedObjectsHero;
 import dto.FeedObjectsTerm;
 import dto.Student;
+import dto.ispitniRok;
 
 
 public class Project {
@@ -111,5 +112,34 @@ public class Project {
 			throw e;
 		}
 	}
-
+	
+	public ArrayList<ispitniRok> GetAllTerms(Connection connection, int rokId) throws Exception
+	{
+		ArrayList<ispitniRok> feedData = new ArrayList<ispitniRok>();
+		try
+		{
+		
+			String sql = "select rok.id, rok.datum from rok join ispit on rok.id = ispit.rok and ispit.student ="+rokId +" group by rok.id";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			String pom;
+			while(rs.next())
+			{
+			//FeedObjects feedObject = new FeedObjects();
+				ispitniRok feedObject = new ispitniRok();
+				feedObject.setId(rs.getInt("id"));
+				pom = rs.getDate("datum").toString();
+				feedObject.setDate(pom);
+				
+				
+				
+			feedData.add(feedObject);
+			}
+			return feedData;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
 }

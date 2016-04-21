@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import dto.FeedObjectsHero;
 import dto.FeedObjectsTerm;
 import dto.Student;
+import dto.ispitniRok;
 
 @Path("/WebService")
 public class FeedService {
@@ -100,6 +101,32 @@ public class FeedService {
 			ProjectManager projectManager= new ProjectManager();
 			feedData = projectManager.getStudent(id);
 			//StringBuffer sb = new StringBuffer();
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
+
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
+	
+	@GET
+	@Path("/Rokovi/{studentid}")
+	@Produces("application/json")
+	
+	public String feedRokovi(@PathParam ("studentid") int id)
+	{	
+		
+		String feeds  = null;
+		try 
+		{	
+			
+			ArrayList<ispitniRok> feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getAllTerms(id);
+			
 			Gson gson = new Gson();
 			System.out.println(gson.toJson(feedData));
 			feeds = gson.toJson(feedData);
