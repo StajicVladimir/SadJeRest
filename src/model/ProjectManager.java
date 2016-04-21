@@ -8,6 +8,7 @@ import dao.Database;
 import dao.Project;
 import dto.FeedObjectsHero;
 import dto.FeedObjectsTerm;
+import dto.Ispit;
 import dto.Student;
 import dto.ispitniRok;
 
@@ -81,5 +82,18 @@ public class ProjectManager {
 		}
 		return feeds;
 	}
-
+	
+	public ArrayList<Ispit> getPolozeniIspiti(int studentId, int rokId)throws Exception {
+		ArrayList<Ispit> feeds = null;
+		try {
+			    Database database= new Database();
+			    Connection connection = database.Get_Connection();
+				Project project= new Project();
+				feeds=project.getPolozeniIspiti(connection, studentId, rokId);
+		
+		} catch (Exception e) {
+			throw e;
+		}
+		return feeds;
+	}
 }

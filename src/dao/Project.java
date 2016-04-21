@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import dto.FeedObjects;
 import dto.FeedObjectsHero;
 import dto.FeedObjectsTerm;
+import dto.Ispit;
 import dto.Student;
 import dto.ispitniRok;
 
@@ -130,6 +131,38 @@ public class Project {
 				feedObject.setId(rs.getInt("id"));
 				pom = rs.getDate("datum").toString();
 				feedObject.setDate(pom);
+				
+				
+				
+			feedData.add(feedObject);
+			}
+			return feedData;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	public ArrayList<Ispit> getPolozeniIspiti(Connection connection, int studentId, int rokId) throws Exception
+	{
+		ArrayList<Ispit> feedData = new ArrayList<Ispit>();
+		try
+		{
+		
+			String sql = "select predmet.naziv, ispit.polozio from predmet "
+					+ "join ispit on ispit.predmet = predmet.id "
+					+ "and ispit.student = " + studentId+" and ispit.rok = "+rokId;
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			String pom;
+			while(rs.next())
+			{
+			//FeedObjects feedObject = new FeedObjects();
+				Ispit feedObject = new Ispit();
+				feedObject.setNazivPredmeta(rs.getString("naziv"));
+				//pom = rs.getDate("datum").toString();
+				feedObject.setPolozio(rs.getInt("polozio"));
 				
 				
 				

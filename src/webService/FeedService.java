@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import dto.FeedObjectsHero;
 import dto.FeedObjectsTerm;
+import dto.Ispit;
 import dto.Student;
 import dto.ispitniRok;
 
@@ -126,6 +127,32 @@ public class FeedService {
 			ArrayList<ispitniRok> feedData = null;
 			ProjectManager projectManager= new ProjectManager();
 			feedData = projectManager.getAllTerms(id);
+			
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
+
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
+	//***********************************************
+	@GET
+	@Path("/RokIspiti/{studentid},{rokid}")
+	@Produces("application/json")
+	
+	public String feedRokIspiti(@PathParam ("studentid") int studentid, @PathParam("rokid") int rokid)
+	{	
+		
+		String feeds  = null;
+		try 
+		{	
+			
+			ArrayList<Ispit> feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getPolozeniIspiti(studentid,rokid);
 			
 			Gson gson = new Gson();
 			System.out.println(gson.toJson(feedData));
