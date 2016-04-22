@@ -7,6 +7,7 @@ public class Student {
 	private int godinaStudija;
 	private int odsek;
 	private int kredit;
+	private String pass;
 	
 	/**
 	 * @return the id
@@ -33,7 +34,18 @@ public class Student {
 	public void setIme(String ime) {
 		this.ime = ime;
 	}
-	
+	/**
+	 * @return the pass
+	 */
+	public String getPass() {
+		return pass;
+	}
+	/**
+	 * @param ime the pass to pass
+	 */
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
 	/**
 	 * @return the prezime
 	 */

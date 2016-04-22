@@ -1,7 +1,7 @@
 package dto;
 import java.sql.Date;
 
-public class ispitniRok {
+public class IspitniRok {
 	private int id;
 	private String date;
 	

@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import dao.Database;
 
 import dao.Project;
-import dto.FeedObjectsHero;
+
 import dto.FeedObjectsTerm;
 import dto.Ispit;
+import dto.Predmet;
 import dto.Student;
-import dto.ispitniRok;
+import dto.IspitniRok;
 
 public class ProjectManager {
 	
@@ -42,8 +43,8 @@ public class ProjectManager {
 		return feeds;
 	}
 	
-	public ArrayList<ispitniRok> getAllTerms(int id)throws Exception {
-		ArrayList<ispitniRok> feeds = null;
+	public ArrayList<IspitniRok> getAllTerms(int id)throws Exception {
+		ArrayList<IspitniRok> feeds = null;
 		try {
 			    Database database= new Database();
 			    Connection connection = database.Get_Connection();
@@ -56,8 +57,8 @@ public class ProjectManager {
 		return feeds;
 	}
 	
-	public ArrayList<ispitniRok> getFutureTerms()throws Exception {
-		ArrayList<ispitniRok> feeds = null;
+	public ArrayList<IspitniRok> getFutureTerms()throws Exception {
+		ArrayList<IspitniRok> feeds = null;
 		try {
 			    Database database= new Database();
 			    Connection connection = database.Get_Connection();
@@ -83,19 +84,7 @@ public class ProjectManager {
 		return feeds;
 	}
 	
-	public ArrayList<FeedObjectsHero> GetFeeds()throws Exception {
-		ArrayList<FeedObjectsHero> feeds = null;
-		try {
-			    Database database= new Database();
-			    Connection connection = database.Get_Connection();
-				Project project= new Project();
-				feeds=project.GetFeeds(connection);
-		
-		} catch (Exception e) {
-			throw e;
-		}
-		return feeds;
-	}
+	
 	
 	public ArrayList<Ispit> getPolozeniIspiti(int studentId, int rokId)throws Exception {
 		ArrayList<Ispit> feeds = null;
@@ -104,6 +93,20 @@ public class ProjectManager {
 			    Connection connection = database.Get_Connection();
 				Project project= new Project();
 				feeds=project.getPolozeniIspiti(connection, studentId, rokId);
+		
+		} catch (Exception e) {
+			throw e;
+		}
+		return feeds;
+	}
+
+	public ArrayList<Predmet> getSvePredmete()throws Exception {
+		ArrayList<Predmet> feeds = null;
+		try {
+			    Database database= new Database();
+			    Connection connection = database.Get_Connection();
+				Project project= new Project();
+				feeds=project.GetSvePredmete(connection);
 		
 		} catch (Exception e) {
 			throw e;

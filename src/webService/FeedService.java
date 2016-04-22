@@ -11,37 +11,17 @@ import model.ProjectManager;
 
 import com.google.gson.Gson;
 
-import dto.FeedObjectsHero;
+
 import dto.FeedObjectsTerm;
 import dto.Ispit;
+import dto.Predmet;
 import dto.Student;
-import dto.ispitniRok;
+import dto.IspitniRok;
 
 @Path("/WebService")
 public class FeedService {
 	
-	@GET
-	@Path("/GetFeeds")
-	@Produces("application/json")
-	public String feed()
-	{
-		String feeds  = null;
-		try 
-		{
-			ArrayList<FeedObjectsHero> feedData = null;
-			ProjectManager projectManager= new ProjectManager();
-			feedData = projectManager.GetFeeds();
-			//StringBuffer sb = new StringBuffer();
-			Gson gson = new Gson();
-			System.out.println(gson.toJson(feedData));
-			feeds = gson.toJson(feedData);
-
-		} catch (Exception e)
-		{
-			System.out.println("error");
-		}
-		return feeds;
-	}
+	
 	
 	@GET
 	@Path("/GetTerms")
@@ -54,6 +34,28 @@ public class FeedService {
 			ArrayList<FeedObjectsTerm> feedData = null;
 			ProjectManager projectManager= new ProjectManager();
 			feedData = projectManager.GetTerms();
+			//StringBuffer sb = new StringBuffer();
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
+
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
+	@GET
+	@Path("/SviPredmeti")
+	@Produces("application/json")
+	public String feedSviPredmeti()
+	{
+		String feeds  = null;
+		try 
+		{
+			ArrayList<Predmet> feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getSvePredmete();
 			//StringBuffer sb = new StringBuffer();
 			Gson gson = new Gson();
 			System.out.println(gson.toJson(feedData));
@@ -124,7 +126,7 @@ public class FeedService {
 		try 
 		{	
 			
-			ArrayList<ispitniRok> feedData = null;
+			ArrayList<IspitniRok> feedData = null;
 			ProjectManager projectManager= new ProjectManager();
 			feedData = projectManager.getAllTerms(id);
 			
@@ -150,7 +152,7 @@ public class FeedService {
 		try 
 		{	
 			
-			ArrayList<ispitniRok> feedData = null;
+			ArrayList<IspitniRok> feedData = null;
 			ProjectManager projectManager= new ProjectManager();
 			feedData = projectManager.getFutureTerms();
 			
