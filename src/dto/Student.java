@@ -8,6 +8,7 @@ public class Student {
 	private int odsek;
 	private int kredit;
 	private String pass;
+	private String adresa;
 	
 	/**
 	 * @return the id
@@ -96,6 +97,19 @@ public class Student {
 	 */
 	public void setKredit(int kredit) {
 		this.kredit = kredit;
+	}
+	
+	/**
+	 * @return the adresa
+	 */
+	public String getAdresa() {
+		return adresa;
+	}
+	/**
+	 * @param adresa the adresa to set
+	 */
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
 	}
 	
 	

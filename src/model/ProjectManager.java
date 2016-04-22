@@ -14,16 +14,16 @@ import dto.Student;
 import dto.IspitniRok;
 
 public class ProjectManager {
-	public String updateStudent(int id, String ime)throws Exception{
+	public String updateStudent(int id, String ime, String prezime, String adresa)throws Exception{
 		//ArrayList <Student> students = getAllStudents();
 		try{
 			Database database= new Database();
 		    Connection connection = database.Get_Connection();
 			Project project= new Project();
-			System.out.println("hey");
+			//System.out.println("hey");
 		//ArrayList<Student> tmp = new ArrayList();
 		
-			return project.updateStudent(connection, id, ime);
+			return project.updateStudent(connection, id, ime, prezime, adresa);
 			
 			
 		
@@ -56,10 +56,10 @@ public class ProjectManager {
 	public Student getStudent(int id)throws Exception{
 		ArrayList <Student> students = getAllStudents();
 		
-		//ArrayList<Student> tmp = new ArrayList();
+		
 		for (Student student: students){
 			if (student.getId() == id){
-				//tmp.add(student);
+				
 				return student;
 			}
 			

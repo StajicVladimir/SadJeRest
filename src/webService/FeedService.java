@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -25,18 +27,21 @@ import dto.IspitniRok;
 @Path("/WebService")
 public class FeedService {
 	
-	@PUT
-	@Path ("/Students/{studentid}/{ime}")
+	@POST
+	@Path ("/Students/")
 	@Produces("application/json")
-	public String updateStudent(@PathParam ("studentid") int studentId, @PathParam("ime") String ime){
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String updateStudent(@FormParam("id") int studentId, 
+			@FormParam("ime") String ime, @FormParam("prezime") String prezime, 
+				@FormParam("adresa") String adresa){
 		String feeds  = null;
 		try 
 		{	
 			
 			String feedData = null;
 			ProjectManager projectManager= new ProjectManager();
-			System.out.println("hey");
-			feedData = projectManager.updateStudent(studentId, ime);
+			System.out.println("hey" + studentId);
+			feedData = projectManager.updateStudent(studentId, ime,prezime,adresa);
 			//StringBuffer sb = new StringBuffer();
 			Gson gson = new Gson();
 			System.out.println(gson.toJson(feedData));
@@ -159,10 +164,10 @@ public class FeedService {
 	}
 	
 	@GET
-	@Path("/Rokovi/{studentid}")
+	@Path("/Rokovi/student/{studentid}")
 	@Produces("application/json")
 	
-	public String feedRokovi(@PathParam ("studentid") int id)
+	public String feedRokoviStudent(@PathParam ("studentid") int id)
 	{	
 		
 		String feeds  = null;
@@ -183,7 +188,32 @@ public class FeedService {
 		}
 		return feeds;
 	}
+	//**********TO DO **************************
+	@GET
+	@Path("/Rokovi/{rokid}")
+	@Produces("application/json")
+	
+	public String feedRok(@PathParam ("rokid") int id)
+	{	
+		
+		String feeds  = null;
+		try 
+		{	
+			
+			ArrayList<IspitniRok> feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getAllTerms(id);
+			
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
 
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
 	@GET
 	@Path("/BuduciRokovi")
 	@Produces("application/json")

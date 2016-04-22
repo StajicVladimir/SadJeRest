@@ -16,9 +16,9 @@ import dto.IspitniRok;
 public class Project {
 	Integer a;
 	
-	public String updateStudent(Connection connection, int studentId, String ime)throws Exception{
+	public String updateStudent(Connection connection, int studentId, String ime, String prezime, String adresa)throws Exception{
 		try{
-			String SQLStatement = "UPDATE student SET ime= '"+ime+"' WHERE id = "+studentId;
+			String SQLStatement = "UPDATE student SET ime= '"+ime+"', prezime='"+prezime+"', adresa='"+adresa+"' WHERE id = "+studentId;
 			System.out.println("u project.updatestudent()" + SQLStatement);
 			
 			PreparedStatement ps = connection.prepareStatement(SQLStatement);
@@ -30,12 +30,7 @@ public class Project {
 	}
 	public String deleteStudent(Connection connection, int studentId)throws Exception{
 		try{
-			System.out.println("u project.deleteStudent()");
-			/*PreparedStatement preparedStatement = dbConnection.prepareStatement(deleteSQL);
-preparedStatement.setInt(1, 1001);
-// execute delete SQL stetement
-preparedStatement.executeUpdate();
-			 * */
+			
 			PreparedStatement ps = connection.prepareStatement("delete FROM student WHERE id = " +studentId);
 			Integer a = ps.executeUpdate();
 			System.out.println("hellooo");
@@ -47,30 +42,26 @@ preparedStatement.executeUpdate();
 		}
 		
 	}
-	////OBRISATII!!!!!
+	
 	public ArrayList<FeedObjectsTerm> GetTerms(Connection connection) throws Exception
 
 	{
 		ArrayList<FeedObjectsTerm> feedData = new ArrayList<FeedObjectsTerm>();
 		try
 		{
-			//String uname = request.getParameter("uname");
-			//PreparedStatement ps = connection.prepareStatement("SELECT title,name, description,url FROM website ORDER BY id DESC");
+			
 			PreparedStatement ps = connection.prepareStatement("SELECT  id, date FROM terms ");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-			//FeedObjects feedObject = new FeedObjects();
+			
 				FeedObjectsTerm feedObject = new FeedObjectsTerm();
 				
 				feedObject.setDate(rs.getString("date"));
-				//a = rs.getInt("id");
+				
 				
 				feedObject.setId(rs.getInt("id"));
-			/*feedObject.setTitle(rs.getString(1));
-			feedObject.setName(rs.getString("name"));
-			feedObject.setDescription(rs.getString("description"));
-			feedObject.setUrl(rs.getString("url"));*/
+			
 			feedData.add(feedObject);
 			}
 			return feedData;
@@ -86,13 +77,12 @@ preparedStatement.executeUpdate();
 		ArrayList<Student> feedData = new ArrayList<Student>();
 		try
 		{
-			//String uname = request.getParameter("uname");
-			//PreparedStatement ps = connection.prepareStatement("SELECT title,name, description,url FROM website ORDER BY id DESC");
+			
 			PreparedStatement ps = connection.prepareStatement("SELECT  * FROM student ");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-			//FeedObjects feedObject = new FeedObjects();
+			
 				Student feedObject = new Student();
 				feedObject.setId(rs.getInt("id"));
 				feedObject.setIme(rs.getString("ime"));
@@ -101,10 +91,8 @@ preparedStatement.executeUpdate();
 				feedObject.setOdsek(rs.getInt("odsek"));
 				feedObject.setKredit(rs.getInt("kredit"));
 				feedObject.setPass(rs.getString("pass"));
-			/*feedObject.setTitle(rs.getString(1));
-			feedObject.setName(rs.getString("name"));
-			feedObject.setDescription(rs.getString("description"));
-			feedObject.setUrl(rs.getString("url"));*/
+				feedObject.setAdresa(rs.getString("adresa"));
+			
 			feedData.add(feedObject);
 			}
 			return feedData;
