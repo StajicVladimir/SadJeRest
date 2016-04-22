@@ -14,8 +14,45 @@ import dto.Student;
 import dto.IspitniRok;
 
 public class ProjectManager {
+	public String updateStudent(int id, String ime)throws Exception{
+		//ArrayList <Student> students = getAllStudents();
+		try{
+			Database database= new Database();
+		    Connection connection = database.Get_Connection();
+			Project project= new Project();
+			System.out.println("hey");
+		//ArrayList<Student> tmp = new ArrayList();
+		
+			return project.updateStudent(connection, id, ime);
+			
+			
+		
+		}catch(Exception e){
+			throw e;
+		}
+	}
 	
-	
+	public String deleteStudent(int studentId)throws Exception{
+		ArrayList <Student> students = getAllStudents();
+		String feeds = null;
+		try{
+			System.out.println("u try catch od project manager");
+			Database database= new Database();
+		    Connection connection = database.Get_Connection();
+			Project project= new Project();
+			
+			for (Student student: students){
+				if (student.getId() == studentId){
+					feeds =project.deleteStudent(connection, studentId);
+					
+					
+				}
+			}
+		}catch(Exception e){
+			throw e;
+		}
+		return feeds;
+	}
 	public Student getStudent(int id)throws Exception{
 		ArrayList <Student> students = getAllStudents();
 		

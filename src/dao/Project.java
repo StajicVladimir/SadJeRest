@@ -16,7 +16,37 @@ import dto.IspitniRok;
 public class Project {
 	Integer a;
 	
-	
+	public String updateStudent(Connection connection, int studentId, String ime)throws Exception{
+		try{
+			String SQLStatement = "UPDATE student SET ime= '"+ime+"' WHERE id = "+studentId;
+			System.out.println("u project.updatestudent()" + SQLStatement);
+			
+			PreparedStatement ps = connection.prepareStatement(SQLStatement);
+			Integer a = ps.executeUpdate();
+		}catch(Exception e){
+			throw e;
+		}
+		return "vlada";
+	}
+	public String deleteStudent(Connection connection, int studentId)throws Exception{
+		try{
+			System.out.println("u project.deleteStudent()");
+			/*PreparedStatement preparedStatement = dbConnection.prepareStatement(deleteSQL);
+preparedStatement.setInt(1, 1001);
+// execute delete SQL stetement
+preparedStatement.executeUpdate();
+			 * */
+			PreparedStatement ps = connection.prepareStatement("delete FROM student WHERE id = " +studentId);
+			Integer a = ps.executeUpdate();
+			System.out.println("hellooo");
+			return a.toString();
+			   
+		}catch (Exception e){
+			throw e;
+			
+		}
+		
+	}
 	////OBRISATII!!!!!
 	public ArrayList<FeedObjectsTerm> GetTerms(Connection connection) throws Exception
 
