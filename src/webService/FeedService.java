@@ -19,10 +19,12 @@ import com.google.gson.Gson;
 
 
 import dto.FeedObjectsTerm;
-import dto.Ispit;
+
+import dto.IspitRok;
 import dto.Predmet;
 import dto.Student;
 import dto.IspitniRok;
+import dto.Odsek;
 
 @Path("/WebService")
 public class FeedService {
@@ -116,6 +118,27 @@ public class FeedService {
 		return feeds;
 	}
 	@GET
+	@Path("/SviPredmeti/{odsekid}")
+	@Produces("application/json")
+	public String feedPredmetiOdsek(@PathParam ("odsekid") int odsekId)
+	{
+		String feeds  = null;
+		try 
+		{
+			ArrayList<Predmet> feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getPredmetiOdsek(odsekId);
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
+
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
+	@GET
 	@Path("/Students")
 	@Produces("application/json")
 	public String feedStudents()
@@ -143,7 +166,7 @@ public class FeedService {
 	
 	public String feedStudent(@PathParam ("studentid") int id)
 	{	
-		//@PathParam ("studentid") int id
+		
 		String feeds  = null;
 		try 
 		{	
@@ -251,7 +274,7 @@ public class FeedService {
 		try 
 		{	
 			
-			ArrayList<Ispit> feedData = null;
+			ArrayList<IspitRok> feedData = null;
 			ProjectManager projectManager= new ProjectManager();
 			feedData = projectManager.getPolozeniIspiti(studentid,rokid);
 			
@@ -265,6 +288,54 @@ public class FeedService {
 		}
 		return feeds;
 	}
+	
+	@GET
+	@Path("/odseci")
+	@Produces("application/json")
+	
+	public String feedOdseci()
+	{	
+		
+		String feeds  = null;
+		try 
+		{	
+			
+			ArrayList<Odsek> feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getOdseci();
+			
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
 
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
+	
+	@GET
+	@Path("/odseci/{odsekid}")
+	@Produces("application/json")
+	public String feedOdsek(@PathParam("odsekid") int odsekId){
+		String feeds  = null;
+		try 
+		{	
+			
+			Odsek feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getOdsek(odsekId);
+			//StringBuffer sb = new StringBuffer();
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
+
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
 
 }

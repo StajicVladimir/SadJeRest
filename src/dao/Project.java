@@ -7,10 +7,12 @@ import java.util.ArrayList;
 
 
 import dto.FeedObjectsTerm;
-import dto.Ispit;
+
+import dto.IspitRok;
 import dto.Predmet;
 import dto.Student;
 import dto.IspitniRok;
+import dto.Odsek;
 
 
 public class Project {
@@ -170,13 +172,13 @@ public class Project {
 		}
 	}
 	//******** Polozeni predmeti u odredjenom roku
-	public ArrayList<Ispit> getPolozeniIspiti(Connection connection, int studentId, int rokId) throws Exception
+	public ArrayList<IspitRok> getPolozeniIspiti(Connection connection, int studentId, int rokId) throws Exception
 	{
-		ArrayList<Ispit> feedData = new ArrayList<Ispit>();
+		ArrayList<IspitRok> feedData = new ArrayList<IspitRok>();
 		try
 		{
 		
-			String sql = "select predmet.naziv, ispit.ocena from predmet "
+			String sql = "select predmet.naziv, predmet.profesor, ispit.datum, ispit.ocena from predmet "
 					+ "join ispit on ispit.predmet = predmet.id "
 					+ "and ispit.student = " + studentId+" and ispit.rok = "+rokId;
 			//select predmet.naziv, ispit.ocena from predmet join ispit on ispit.predmet = predmet.id and ispit.student = 2256 and ispit.rok = 2;
@@ -185,10 +187,12 @@ public class Project {
 			String pom;
 			while(rs.next())
 			{
-			//FeedObjects feedObject = new FeedObjects();
-				Ispit feedObject = new Ispit();
+			
+				IspitRok feedObject = new IspitRok();
 				feedObject.setNazivPredmeta(rs.getString("naziv"));
-				//pom = rs.getDate("datum").toString();
+				feedObject.setProfesor(rs.getString("profesor"));
+				pom = rs.getDate("datum").toString();
+				feedObject.setDatum(pom);
 				feedObject.setPolozio(rs.getInt("ocena"));
 				
 				
@@ -233,4 +237,67 @@ public class Project {
 			throw e;
 		}
 	}
+	public ArrayList<Predmet> getPredmetOdsek(Connection connection, int odsekId) throws Exception
+	{
+		ArrayList<Predmet> feedData = new ArrayList<Predmet>();
+		try
+		{
+		
+			String sql = "select id, naziv, profesor from predmet where odsek =" + odsekId;
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next())
+			{
+			
+				Predmet feedObject = new Predmet();
+				feedObject.setId(rs.getInt("id"));
+				
+				feedObject.setNaziv(rs.getString("naziv"));
+				feedObject.setProfesor(rs.getString("profesor"));
+				
+				
+				
+			feedData.add(feedObject);
+			}
+			return feedData;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	//************Odsek
+	public ArrayList<Odsek> getOdseci(Connection connection) throws Exception
+	{
+		ArrayList<Odsek> feedData = new ArrayList<Odsek>();
+		try
+		{
+		
+			String sql = "select id, naziv from odsek";
+			
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next())
+			{
+			
+				Odsek feedObject = new Odsek();
+				feedObject.setId(rs.getInt("id"));
+				
+				feedObject.setNaziv(rs.getString("naziv"));
+				
+				
+				
+			feedData.add(feedObject);
+			}
+			return feedData;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+
 }

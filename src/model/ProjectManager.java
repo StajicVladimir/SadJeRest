@@ -8,10 +8,11 @@ import dao.Database;
 import dao.Project;
 
 import dto.FeedObjectsTerm;
-import dto.Ispit;
+import dto.IspitRok;
 import dto.Predmet;
 import dto.Student;
 import dto.IspitniRok;
+import dto.Odsek;
 
 public class ProjectManager {
 	public String updateStudent(int id, String ime, String prezime, String adresa)throws Exception{
@@ -123,8 +124,8 @@ public class ProjectManager {
 	
 	
 	
-	public ArrayList<Ispit> getPolozeniIspiti(int studentId, int rokId)throws Exception {
-		ArrayList<Ispit> feeds = null;
+	public ArrayList<IspitRok> getPolozeniIspiti(int studentId, int rokId)throws Exception {
+		ArrayList<IspitRok> feeds = null;
 		try {
 			    Database database= new Database();
 			    Connection connection = database.Get_Connection();
@@ -136,7 +137,34 @@ public class ProjectManager {
 		}
 		return feeds;
 	}
-
+	//***************** odsek
+	public ArrayList<Odsek> getOdseci()throws Exception {
+		ArrayList <Odsek> feeds = null;
+		try {
+			    Database database= new Database();
+			    Connection connection = database.Get_Connection();
+				Project project= new Project();
+				feeds=project.getOdseci(connection);
+		
+		} catch (Exception e) {
+			throw e;
+		}
+		return feeds;
+	}
+	
+	public Odsek getOdsek(int odsekId)throws Exception{
+		ArrayList <Odsek> odseci = getOdseci();
+		
+		
+		for (Odsek odsek: odseci){
+			if (odsek.getId() == odsekId){
+				
+				return odsek;
+			}
+			
+		}
+		return null;
+	}
 	public ArrayList<Predmet> getSvePredmete()throws Exception {
 		ArrayList<Predmet> feeds = null;
 		try {
@@ -144,6 +172,20 @@ public class ProjectManager {
 			    Connection connection = database.Get_Connection();
 				Project project= new Project();
 				feeds=project.GetSvePredmete(connection);
+		
+		} catch (Exception e) {
+			throw e;
+		}
+		return feeds;
+	}
+
+	public ArrayList<Predmet> getPredmetiOdsek(int odsekId)throws Exception {
+		ArrayList<Predmet> feeds = null;
+		try {
+			    Database database= new Database();
+			    Connection connection = database.Get_Connection();
+				Project project= new Project();
+				feeds=project.getPredmetOdsek(connection, odsekId);
 		
 		} catch (Exception e) {
 			throw e;

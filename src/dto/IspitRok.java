@@ -1,9 +1,35 @@
 package dto;
 
-public class Ispit {
+public class IspitRok {
 	String nazivPredmeta;
+	String profesor;
+	String datum;
 	int polozio;
 	
+	/**
+	 * @return the datum
+	 */
+	public String getDatum() {
+		return datum;
+	}
+	/**
+	 * @param datum the datum to set
+	 */
+	public void setDatum(String datum) {
+		this.datum = datum;
+	}
+	/**
+	 * @return the profesor
+	 */
+	public String getProfesor() {
+		return profesor;
+	}
+	/**
+	 * @param profesor the profesor to set
+	 */
+	public void setProfesor(String profesor) {
+		this.profesor = profesor;
+	}
 	/**
 	 * @return the nazivPredmeta
 	 */
