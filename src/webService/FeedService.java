@@ -162,7 +162,7 @@ public class FeedService {
 		}
 		return feeds;
 	}
-	
+	//**************Svi rokovi u kojima je student bio aktivan ISTORIJAT ROKOVA
 	@GET
 	@Path("/Rokovi/student/{studentid}")
 	@Produces("application/json")

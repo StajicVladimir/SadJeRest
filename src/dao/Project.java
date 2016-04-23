@@ -109,7 +109,7 @@ public class Project {
 		try
 		{
 		
-			String sql = "select ispitni_rok.id, ispitni_rok.datum_pocetka"
+			String sql = "select ispitni_rok.id, ispitni_rok.datum_pocetka, ispitni_rok.datum_zavrsetka, ispitni_rok.naziv_roka"
 					+ " from ispitni_rok join ispit on ispitni_rok.id = ispit.rok and ispit.student ="+studentId +" group by ispitni_rok.id";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -120,7 +120,10 @@ public class Project {
 				IspitniRok feedObject = new IspitniRok();
 				feedObject.setId(rs.getInt("id"));
 				pom = rs.getDate("datum_pocetka").toString();
-				feedObject.setDate(pom);
+				feedObject.setDatumPocetka(pom);
+				pom = rs.getDate("datum_zavrsetka").toString();
+				feedObject.setDatumZavrsetka(pom);
+				feedObject.setNaziv(rs.getString("naziv_roka"));
 				
 				
 				
@@ -140,7 +143,8 @@ public class Project {
 		try
 		{
 		
-			String sql = "select id, datum_pocetka from ispitni_rok where datum_pocetka > now() and datum_pocetka < DATE_ADD(now(),  INTERVAL 5 MONTH)";
+			String sql = "select id, datum_pocetka, datum_zavrsetka, naziv_roka"
+					+ " from ispitni_rok where datum_pocetka > now() and datum_pocetka < DATE_ADD(now(),  INTERVAL 5 MONTH)";
 			
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -151,9 +155,10 @@ public class Project {
 				IspitniRok feedObject = new IspitniRok();
 				feedObject.setId(rs.getInt("id"));
 				pom = rs.getDate("datum_pocetka").toString();
-				feedObject.setDate(pom);
-				
-				
+				feedObject.setDatumPocetka(pom);
+				pom = rs.getDate("datum_zavrsetka").toString();
+				feedObject.setDatumPocetka(pom);
+				feedObject.setNaziv(rs.getString("naziv_roka"));
 				
 			feedData.add(feedObject);
 			}
