@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Date;
 
 import dao.Database;
 
@@ -15,7 +16,7 @@ import dto.IspitniRok;
 import dto.Odsek;
 
 public class ProjectManager {
-	public String updateStudent(int id, String ime, String prezime, String adresa)throws Exception{
+	public String updateStudent(int id, String ime, String prezime, String adresa, int kredit)throws Exception{
 		//ArrayList <Student> students = getAllStudents();
 		try{
 			Database database= new Database();
@@ -24,7 +25,7 @@ public class ProjectManager {
 			//System.out.println("hey");
 		//ArrayList<Student> tmp = new ArrayList();
 		
-			return project.updateStudent(connection, id, ime, prezime, adresa);
+			return project.updateStudent(connection, id, ime, prezime, adresa, kredit);
 			
 			
 		
@@ -178,7 +179,20 @@ public class ProjectManager {
 		}
 		return feeds;
 	}
-
+	public Predmet getPredmet(int predmetId)throws Exception {
+		ArrayList<Predmet> predmeti = null;
+		try {
+			    
+				predmeti=getSvePredmete();
+				for(Predmet predmet: predmeti){
+					if (predmet.getId() == predmetId)
+						return predmet;
+				}
+		} catch (Exception e) {
+			throw e;
+		}
+		return null;
+	}
 	public ArrayList<Predmet> getPredmetiOdsek(int odsekId)throws Exception {
 		ArrayList<Predmet> feeds = null;
 		try {
@@ -205,5 +219,23 @@ public class ProjectManager {
 			throw e;
 		}
 		return feeds;
+	}
+
+	public String putIspit(int studentId, int predmet, int rok, int ocena, String datum)throws Exception{
+		//ArrayList <Student> students = getAllStudents();
+		try{
+			Database database= new Database();
+		    Connection connection = database.Get_Connection();
+			Project project= new Project();
+			System.out.println("hey");
+		//ArrayList<Student> tmp = new ArrayList();
+		
+			return project.putIspit(connection, studentId, predmet, rok, ocena, datum);
+			
+			
+		
+		}catch(Exception e){
+			throw e;
+		}
 	}
 }

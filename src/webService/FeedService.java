@@ -1,6 +1,7 @@
 package webService;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -57,7 +58,7 @@ public class FeedService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String updateStudent(@FormParam("id") int studentId, 
 			@FormParam("ime") String ime, @FormParam("prezime") String prezime, 
-				@FormParam("adresa") String adresa){
+				@FormParam("adresa") String adresa, @FormParam("kredit") int kredit){
 		String feeds  = null;
 		try 
 		{	
@@ -65,7 +66,7 @@ public class FeedService {
 			String feedData = null;
 			ProjectManager projectManager= new ProjectManager();
 			System.out.println("hey" + studentId);
-			feedData = projectManager.updateStudent(studentId, ime,prezime,adresa);
+			feedData = projectManager.updateStudent(studentId, ime,prezime,adresa, kredit);
 			//StringBuffer sb = new StringBuffer();
 			Gson gson = new Gson();
 			System.out.println(gson.toJson(feedData));
@@ -119,8 +120,31 @@ public class FeedService {
 		}
 		return feeds;
 	}
+	
 	@GET
-	@Path("/SviPredmeti")
+	@Path("/predmeti/{predmetid}")
+	@Produces("application/json")
+	public String feedPredmet(@PathParam ("predmetid") int predmetId)
+	{
+		String feeds  = null;
+		try 
+		{
+			Predmet feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getPredmet(predmetId);
+			//StringBuffer sb = new StringBuffer();
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
+
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
+	@GET
+	@Path("/predmeti")
 	@Produces("application/json")
 	public String feedSviPredmeti()
 	{
@@ -142,7 +166,7 @@ public class FeedService {
 		return feeds;
 	}
 	@GET
-	@Path("/SviPredmeti/{odsekid}")
+	@Path("/predmeti/odsek/{odsekid}")
 	@Produces("application/json")
 	public String feedPredmetiOdsek(@PathParam ("odsekid") int odsekId)
 	{
@@ -361,5 +385,32 @@ public class FeedService {
 		}
 		return feeds;
 	}
+	
+	
+	@PUT
+	@Path ("/ispiti/")
+	@Produces("application/json")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String putIspit(@FormParam("studentId") int studentId, 
+			@FormParam("predmet") int predmet, @FormParam("rok") int rok, 
+				@FormParam("ocena") int ocena, @FormParam ("datum") String datum){
+		String feeds  = null;
+		try 
+		{	
+			
+			String feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			System.out.println("hey" + studentId);
+			feedData = projectManager.putIspit(studentId, predmet, rok, ocena, datum);
+			//StringBuffer sb = new StringBuffer();
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
 
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return feeds;
+	}
 }
