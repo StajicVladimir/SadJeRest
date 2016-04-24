@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-
+import dto.Datum;
 import dto.FeedObjectsTerm;
 
 import dto.IspitRok;
@@ -121,10 +121,10 @@ public class Project {
 			//FeedObjects feedObject = new FeedObjects();
 				IspitniRok feedObject = new IspitniRok();
 				feedObject.setId(rs.getInt("id"));
-				pom = rs.getDate("datum_pocetka").toString();
-				feedObject.setDatumPocetka(pom);
-				pom = rs.getDate("datum_zavrsetka").toString();
-				feedObject.setDatumZavrsetka(pom);
+				//pom = rs.getDate("datum_pocetka");
+				feedObject.setDatumPocetka(rs.getDate("datum_pocetka"));
+				//pom = rs.getDate("datum_zavrsetka").toString();
+				feedObject.setDatumZavrsetka(rs.getDate("datum_zavrsetka"));
 				feedObject.setNaziv(rs.getString("naziv_roka"));
 				
 				
@@ -156,10 +156,10 @@ public class Project {
 			//FeedObjects feedObject = new FeedObjects();
 				IspitniRok feedObject = new IspitniRok();
 				feedObject.setId(rs.getInt("id"));
-				pom = rs.getDate("datum_pocetka").toString();
-				feedObject.setDatumPocetka(pom);
-				pom = rs.getDate("datum_zavrsetka").toString();
-				feedObject.setDatumPocetka(pom);
+				//pom = rs.getDate("datum_pocetka").toString();
+				feedObject.setDatumPocetka(rs.getDate("datum_pocetka"));
+				//pom = rs.getDate("datum_zavrsetka").toString();
+				feedObject.setDatumZavrsetka(rs.getDate("datum_zavrsetka"));
 				feedObject.setNaziv(rs.getString("naziv_roka"));
 				
 			feedData.add(feedObject);
@@ -191,8 +191,8 @@ public class Project {
 				IspitRok feedObject = new IspitRok();
 				feedObject.setNazivPredmeta(rs.getString("naziv"));
 				feedObject.setProfesor(rs.getString("profesor"));
-				pom = rs.getDate("datum").toString();
-				feedObject.setDatum(pom);
+				//pom = rs.getDate("datum").toString();
+				feedObject.setDatum(rs.getDate("datum"));
 				feedObject.setPolozio(rs.getInt("ocena"));
 				
 				
@@ -299,5 +299,36 @@ public class Project {
 			throw e;
 		}
 	}
+	public ArrayList<Datum> getDatume(Connection connection) throws Exception
+	{
+		ArrayList<Datum> feedData = new ArrayList<Datum>();
+		try
+		{
+		
+			String sql = "select datum from datum";
+			
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next())
+			{
+			
+				Datum feedObject = new Datum();
+				
+				
+				feedObject.setDatum(rs.getDate("datum"));
+				
+				
+				
+			feedData.add(feedObject);
+			}
+			return feedData;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
 
 }

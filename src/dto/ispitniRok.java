@@ -3,8 +3,8 @@ import java.sql.Date;
 
 public class IspitniRok {
 	private int id;
-	private String datumPocetka;
-	private String datumZavrsetka;
+	private Date datumPocetka;
+	private Date datumZavrsetka;
 	private String naziv;
 	
 	/**
@@ -24,13 +24,13 @@ public class IspitniRok {
 	/**
 	 * @return the datumPocetka
 	 */
-	public String getDatumPocetka() {
+	public Date getDatumPocetka() {
 		return datumPocetka;
 	}
 	/**
 	 * @param datumPocetka the datumPocetka to set
 	 */
-	public void setDatumPocetka(String datumPocetka) {
+	public void setDatumPocetka(Date datumPocetka) {
 		this.datumPocetka = datumPocetka;
 		
 	}
@@ -38,13 +38,13 @@ public class IspitniRok {
 	/**
 	 * @return the datumZavrsetka
 	 */
-	public String getDatumZavrsetka() {
+	public Date getDatumZavrsetka() {
 		return datumZavrsetka;
 	}
 	/**
 	 * @param datumZavrsetka the datumZavrsetka to set
 	 */
-	public void setDatumZavrsetka(String datumZavrsetka) {
+	public void setDatumZavrsetka(Date datumZavrsetka) {
 		this.datumZavrsetka = datumZavrsetka;
 		
 	}

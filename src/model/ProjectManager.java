@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import dao.Database;
 
 import dao.Project;
-
+import dto.Datum;
 import dto.FeedObjectsTerm;
 import dto.IspitRok;
 import dto.Predmet;
@@ -186,6 +186,20 @@ public class ProjectManager {
 			    Connection connection = database.Get_Connection();
 				Project project= new Project();
 				feeds=project.getPredmetOdsek(connection, odsekId);
+		
+		} catch (Exception e) {
+			throw e;
+		}
+		return feeds;
+	}
+	
+	public ArrayList<Datum> getDatume()throws Exception {
+		ArrayList<Datum> feeds = null;
+		try {
+			    Database database= new Database();
+			    Connection connection = database.Get_Connection();
+				Project project= new Project();
+				feeds=project.getDatume(connection);
 		
 		} catch (Exception e) {
 			throw e;

@@ -1,21 +1,23 @@
 package dto;
 
+import java.util.Date;
+
 public class IspitRok {
 	String nazivPredmeta;
 	String profesor;
-	String datum;
+	Date datum;
 	int polozio;
 	
 	/**
 	 * @return the datum
 	 */
-	public String getDatum() {
+	public Date getDatum() {
 		return datum;
 	}
 	/**
 	 * @param datum the datum to set
 	 */
-	public void setDatum(String datum) {
+	public void setDatum(Date datum) {
 		this.datum = datum;
 	}
 	/**
