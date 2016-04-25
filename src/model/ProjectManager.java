@@ -16,7 +16,7 @@ import dto.IspitniRok;
 import dto.Odsek;
 
 public class ProjectManager {
-	public String updateStudent(int id, String ime, String prezime, String adresa, int kredit)throws Exception{
+	public String updateStudent(int id, String ime, String prezime, String adresa, int kredit, String lozinka)throws Exception{
 		//ArrayList <Student> students = getAllStudents();
 		try{
 			Database database= new Database();
@@ -25,7 +25,7 @@ public class ProjectManager {
 			//System.out.println("hey");
 		//ArrayList<Student> tmp = new ArrayList();
 		
-			return project.updateStudent(connection, id, ime, prezime, adresa, kredit);
+			return project.updateStudent(connection, id, ime, prezime, adresa, kredit, lozinka);
 			
 			
 		

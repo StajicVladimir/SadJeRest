@@ -58,7 +58,7 @@ public class FeedService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String updateStudent(@FormParam("id") int studentId, 
 			@FormParam("ime") String ime, @FormParam("prezime") String prezime, 
-				@FormParam("adresa") String adresa, @FormParam("kredit") int kredit){
+				@FormParam("adresa") String adresa, @FormParam("kredit") int kredit, @FormParam("lozinka") String lozinka){
 		String feeds  = null;
 		try 
 		{	
@@ -66,7 +66,7 @@ public class FeedService {
 			String feedData = null;
 			ProjectManager projectManager= new ProjectManager();
 			System.out.println("hey" + studentId);
-			feedData = projectManager.updateStudent(studentId, ime,prezime,adresa, kredit);
+			feedData = projectManager.updateStudent(studentId, ime,prezime,adresa, kredit, lozinka);
 			//StringBuffer sb = new StringBuffer();
 			Gson gson = new Gson();
 			System.out.println(gson.toJson(feedData));
@@ -235,7 +235,7 @@ public class FeedService {
 	}
 	//**************Svi rokovi u kojima je student bio aktivan ISTORIJAT ROKOVA
 	@GET
-	@Path("/Rokovi/student/{studentid}")
+	@Path("/rokovi/student/{studentid}")
 	@Produces("application/json")
 	
 	public String feedRokoviStudent(@PathParam ("studentid") int id)
@@ -261,7 +261,7 @@ public class FeedService {
 	}
 	//**********TO DO **************************
 	@GET
-	@Path("/Rokovi/{rokid}")
+	@Path("/rokovi/{rokid}")
 	@Produces("application/json")
 	
 	public String feedRok(@PathParam ("rokid") int id)
@@ -286,7 +286,7 @@ public class FeedService {
 		return feeds;
 	}
 	@GET
-	@Path("/BuduciRokovi")
+	@Path("/buducirokovi")
 	@Produces("application/json")
 	
 	public String feedFutureRokovi()

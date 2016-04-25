@@ -19,9 +19,10 @@ import dto.Odsek;
 public class Project {
 	Integer a;
 	
-	public String updateStudent(Connection connection, int studentId, String ime, String prezime, String adresa, int kredit)throws Exception{
+	public String updateStudent(Connection connection, int studentId, String ime, String prezime, String adresa, int kredit, String lozinka)throws Exception{
 		try{
-			String SQLStatement = "UPDATE student SET ime= '"+ime+"', prezime='"+prezime+"', adresa='"+adresa+"', kredit='"+kredit+"' WHERE id = "+studentId;
+			String SQLStatement = "UPDATE student SET ime= '"+ime+"', prezime='"+prezime+"', adresa='"
+									+adresa+"', kredit='"+kredit+"', pass='"+lozinka+"' WHERE id = "+studentId;
 			System.out.println("u project.updatestudent()" + SQLStatement);
 			
 			PreparedStatement ps = connection.prepareStatement(SQLStatement);
