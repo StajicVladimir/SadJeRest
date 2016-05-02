@@ -3,6 +3,8 @@ package webService;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static java.nio.charset.StandardCharsets.*;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -98,16 +100,17 @@ public class FeedService {
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED + ";charset=UTF-8")
 	public String updateStudent(@FormParam("id") int studentId, 
-			@FormParam("ime") String ime, @FormParam("prezime") String prezime, 
+			@FormParam("ime") String ime, @FormParam("prezime")  String prezime, 
 				@FormParam("adresa") String adresa, @FormParam("kredit") int kredit, @FormParam("lozinka") String lozinka){
 		String feeds  = null;
 		try 
 		{	
-			
+			//byte ptext[] = prezime.getBytes(ISO_8859_1); 
+			//String prezimeString = new String(prezime, UTF_8); 
 			String feedData = null;
 			ProjectManager projectManager= new ProjectManager();
 			System.out.println("hey" + studentId + prezime);
-			feedData = projectManager.updateStudent(studentId, ime,prezime,adresa, kredit, lozinka);
+		    feedData = projectManager.updateStudent(studentId, ime,prezime,adresa, kredit, lozinka);
 			//StringBuffer sb = new StringBuffer();
 			Gson gson = new Gson();
 			System.out.println(gson.toJson(feedData));
@@ -195,6 +198,29 @@ public class FeedService {
 			ArrayList<Predmet> feedData = null;
 			ProjectManager projectManager= new ProjectManager();
 			feedData = projectManager.getSvePredmete();
+			//StringBuffer sb = new StringBuffer();
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
+
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
+	
+	@GET
+	@Path("/predmeti/{odsekid},{studentid},{rokid}")
+	@Produces("application/json")
+	public String feedSviPredmeti(@PathParam ("odsekid") int odsekId, @PathParam ("studentid") int studentId,@PathParam ("rokid") int rokId)
+	{
+		String feeds  = null;
+		try 
+		{
+			ArrayList<Predmet> feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getPredmeteZaPrijavu(odsekId, studentId, rokId);
 			//StringBuffer sb = new StringBuffer();
 			Gson gson = new Gson();
 			System.out.println(gson.toJson(feedData));
@@ -340,6 +366,31 @@ public class FeedService {
 			ArrayList<IspitniRok> feedData = null;
 			ProjectManager projectManager= new ProjectManager();
 			feedData = projectManager.getFutureTerms();
+			
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
+
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
+	@GET
+	@Path("/svibuducirokovi")
+	@Produces("application/json")
+	
+	public String feedAllFutureRokovi()
+	{	
+		
+		String feeds  = null;
+		try 
+		{	
+			
+			ArrayList<IspitniRok> feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			feedData = projectManager.getAllFutureTerms();
 			
 			Gson gson = new Gson();
 			System.out.println(gson.toJson(feedData));

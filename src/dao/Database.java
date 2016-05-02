@@ -10,10 +10,10 @@ public class Database {
 	{
 		try
 		{
-		String connectionURL = "jdbc:mysql://localhost:3306/prijava_ispita";
+		String connectionURL = "jdbc:mysql://127.0.0.1:3306/prijava_ispita?useUnicode=true&characterEncoding=UTF-8";
 		Connection connection = null;
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		connection = DriverManager.getConnection(connectionURL, "root", "Fanta82ns");
+		connection = DriverManager.getConnection(connectionURL, "root", "");
 	    return connection;
 		}
 		catch (SQLException e)

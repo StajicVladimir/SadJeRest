@@ -173,6 +173,38 @@ public class Project {
 			throw e;
 		}
 	}
+	public ArrayList<IspitniRok> getAllFutureTerms(Connection connection) throws Exception
+	{
+		ArrayList<IspitniRok> feedData = new ArrayList<IspitniRok>();
+		try
+		{
+		
+			String sql = "select id, datum_pocetka, datum_zavrsetka, naziv_roka"
+					+ " from ispitni_rok where datum_pocetka > now()";
+			
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			String pom;
+			while(rs.next())
+			{
+			//FeedObjects feedObject = new FeedObjects();
+				IspitniRok feedObject = new IspitniRok();
+				feedObject.setId(rs.getInt("id"));
+				
+				feedObject.setDatumPocetka(rs.getDate("datum_pocetka"));
+				
+				feedObject.setDatumZavrsetka(rs.getDate("datum_zavrsetka"));
+				feedObject.setNaziv(rs.getString("naziv_roka"));
+				
+			feedData.add(feedObject);
+			}
+			return feedData;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
 	//******** Polozeni predmeti u odredjenom roku
 	public ArrayList<IspitRok> getPolozeniIspiti(Connection connection, int studentId, int rokId) throws Exception
 	{
@@ -219,6 +251,38 @@ public class Project {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			
+			while(rs.next())
+			{
+			
+				Predmet feedObject = new Predmet();
+				feedObject.setId(rs.getInt("id"));
+				
+				feedObject.setNaziv(rs.getString("naziv"));
+				feedObject.setProfesor(rs.getString("profesor"));
+				
+				
+				
+			feedData.add(feedObject);
+			}
+			return feedData;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	//*********** predmeti za prijavu, ne polozeni i oni koji nisu vec prijavljeni u odabranom roku
+	public ArrayList<Predmet> getPredmeteZaPrijavu(Connection connection, int odsek, int studentId, int rokId ) throws Exception
+	{
+		ArrayList<Predmet> feedData = new ArrayList<Predmet>();
+		try
+		{
+		
+			String sql = "SELECT * FROM predmet WHERE predmet.odsek = "+odsek+" and id NOT IN "
+					+ "(SELECT ispit.predmet FROM ispit where ispit.student = "+studentId+" and (ispit.rok = "+rokId+" OR ispit.ocena>5))";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			System.out.println(sql);
 			while(rs.next())
 			{
 			

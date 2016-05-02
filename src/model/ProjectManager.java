@@ -109,6 +109,19 @@ public class ProjectManager {
 		}
 		return feeds;
 	}
+	public ArrayList<IspitniRok> getAllFutureTerms()throws Exception {
+		ArrayList<IspitniRok> feeds = null;
+		try {
+			    Database database= new Database();
+			    Connection connection = database.Get_Connection();
+				Project project= new Project();
+				feeds=project.getAllFutureTerms(connection);
+		
+		} catch (Exception e) {
+			throw e;
+		}
+		return feeds;
+	}
 	public ArrayList<FeedObjectsTerm> GetTerms()throws Exception {
 		ArrayList<FeedObjectsTerm> feeds = null;
 		try {
@@ -165,6 +178,19 @@ public class ProjectManager {
 			
 		}
 		return null;
+	}
+	public ArrayList<Predmet> getPredmeteZaPrijavu(int odsekId, int studentId, int rokId)throws Exception {
+		ArrayList<Predmet> feeds = null;
+		try {
+			    Database database= new Database();
+			    Connection connection = database.Get_Connection();
+				Project project= new Project();
+				feeds=project.getPredmeteZaPrijavu(connection, odsekId, studentId, rokId);
+		
+		} catch (Exception e) {
+			throw e;
+		}
+		return feeds;
 	}
 	public ArrayList<Predmet> getSvePredmete()throws Exception {
 		ArrayList<Predmet> feeds = null;
