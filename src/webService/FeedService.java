@@ -23,6 +23,7 @@ import dto.FeedObjectsTerm;
 
 import dto.IspitRok;
 import dto.Predmet;
+import dto.RequestStudent;
 import dto.Student;
 import dto.IspitniRok;
 import dto.Odsek;
@@ -30,6 +31,22 @@ import dto.Odsek;
 @Path("/WebService")
 public class FeedService {
 	
+	@GET
+	@Path("/Hello")
+	@Produces("text/plain")
+	public String feedProba()
+	{
+		String feeds  = null;
+		try 
+		{
+			feeds="Hey Di si? ";
+
+		} catch (Exception e)
+		{
+			System.out.println("error");
+		}
+		return feeds;
+	}
 	@GET
 	@Path("/datumi")
 	@Produces("application/json")
@@ -52,10 +69,34 @@ public class FeedService {
 		}
 		return feeds;
 	}
+	/*@POST
+	@Path ("/Students/")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public String updateStudent(RequestStudent requestStudent){
+		String feeds  = null;
+		try 
+		{	
+			
+			String feedData = null;
+			ProjectManager projectManager= new ProjectManager();
+			System.out.println("hey" + requestStudent.getId());
+			//feedData = projectManager.updateStudent(studentId, ime,prezime,adresa, kredit, lozinka);
+			//StringBuffer sb = new StringBuffer();
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(feedData));
+			feeds = gson.toJson(feedData);
+
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return feeds;
+	}*/
 	@POST
 	@Path ("/Students/")
 	@Produces("application/json")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED + ";charset=UTF-8")
 	public String updateStudent(@FormParam("id") int studentId, 
 			@FormParam("ime") String ime, @FormParam("prezime") String prezime, 
 				@FormParam("adresa") String adresa, @FormParam("kredit") int kredit, @FormParam("lozinka") String lozinka){
@@ -65,7 +106,7 @@ public class FeedService {
 			
 			String feedData = null;
 			ProjectManager projectManager= new ProjectManager();
-			System.out.println("hey" + studentId);
+			System.out.println("hey" + studentId + prezime);
 			feedData = projectManager.updateStudent(studentId, ime,prezime,adresa, kredit, lozinka);
 			//StringBuffer sb = new StringBuffer();
 			Gson gson = new Gson();
@@ -188,7 +229,7 @@ public class FeedService {
 	}
 	@GET
 	@Path("/Students")
-	@Produces("application/json")
+	@Produces("application/json" + ";charset=UTF-8")
 	public String feedStudents()
 	{
 		String feeds  = null;
@@ -210,7 +251,7 @@ public class FeedService {
 	}
 	@GET
 	@Path("/Students/{studentid}")
-	@Produces("application/json")
+	@Produces("application/json"+";charset=UTF-8")
 	
 	public String feedStudent(@PathParam ("studentid") int id)
 	{	
@@ -261,7 +302,7 @@ public class FeedService {
 	}
 	//**********TO DO **************************
 	@GET
-	@Path("/rokovi/{rokid}")
+	@Path("/rokovi/{rokd}")
 	@Produces("application/json")
 	
 	public String feedRok(@PathParam ("rokid") int id)

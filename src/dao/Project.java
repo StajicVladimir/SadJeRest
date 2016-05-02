@@ -114,7 +114,7 @@ public class Project {
 		{
 		
 			String sql = "select ispitni_rok.id, ispitni_rok.datum_pocetka, ispitni_rok.datum_zavrsetka, ispitni_rok.naziv_roka"
-					+ " from ispitni_rok join ispit on ispitni_rok.id = ispit.rok and ispit.student ="+studentId +" group by ispitni_rok.id";
+					+ " from ispitni_rok join ispit on ispitni_rok.id = ispit.rok and ispit.student ="+studentId +" where datum_pocetka < now() group by ispitni_rok.id";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			String pom;
